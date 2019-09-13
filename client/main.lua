@@ -25,7 +25,7 @@ Citizen.CreateThread(function()
             local pos = GetEntityCoords(GetPlayerPed(-1), true)
             for i=1, #Crafting.Locations, 1 do
                 if GetDistanceBetweenCoords(pos.x, pos.y, pos.z, Crafting.Locations[i].x, Crafting.Locations[i].y, Crafting.Locations[i].z, true) < 2.5 then
-                    ESX.DrawText3D(Crafting.Locations[i].x, Crafting.Locations[i].y, Crafting.Locations[i].z, "[~g~E~w~] to craft item")
+                    DrawText3D(Crafting.Locations[i].x, Crafting.Locations[i].y, Crafting.Locations[i].z, "[~g~E~w~] to craft item")
                     if IsControlJustReleased(0, Keys["E"]) then
                         OpenCraftMenu()
                     end
@@ -97,4 +97,21 @@ function OpenCraftMenu()
             menu.close()
         end)
     end)
+end
+
+DrawText3D = function(x, y, z, text)
+	SetTextScale(0.35, 0.35)
+	SetTextFont(4)
+	SetTextProportional(1)
+	SetTextColour(255, 255, 255, 215)
+	SetTextEntry("STRING")
+	SetTextCentre(true)
+	AddTextComponentString(text)
+	--DrawText(_x,_y)
+	SetDrawOrigin(x,y,z, 0)
+	DrawText(0.0, 0.0)
+	local factor = (string.len(text)) / 370
+	--DrawRect(_x,_y+0.0125, 0.017+ factor, 0.03, 0, 0, 0, 68)
+	DrawRect(0.0, 0.0+0.0125, 0.017+ factor, 0.03, 0, 0, 0, 68)
+	ClearDrawOrigin()
 end
